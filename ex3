@@ -1,0 +1,47 @@
+-- Create the original table
+CREATE TABLE product_attributes (
+    product_id INT,
+    store_id INT,
+    attribute_type VARCHAR(50),
+    attribute_value VARCHAR(50)
+);
+
+-- Insert records into the original table
+INSERT INTO product_attributes (product_id, store_id, attribute_type, attribute_value) VALUES
+(101, 1, 'size', 'Large'),
+(101, 1, 'color', 'Red'),
+(101, 1, 'brand', 'BrandA'),
+(102, 1, 'size', 'Medium'),
+(102, 1, 'color', 'Blue'),
+(102, 1, 'brand', 'BrandB');
+
+-- Create the pivoted table
+CREATE TABLE pivoted_product_attributes (
+    product_id INT,
+    store_id INT,
+    size VARCHAR(50),
+    color VARCHAR(50),
+    brand VARCHAR(50)
+);
+
+-- Step 1: Create a CTE to prepare the attribute values
+WITH attribute_values AS (
+    SELECT 
+        product_id,
+        store_id,
+        CASE WHEN attribute_type = 'size' THEN attribute_value END AS size,
+        CASE WHEN attribute_type = 'color' THEN attribute_value END AS color,
+        CASE WHEN attribute_type = 'brand' THEN attribute_value END AS brand
+    FROM product_attributes
+)
+
+-- Step 2: Insert into the pivoted table
+INSERT INTO pivoted_product_attributes (product_id, store_id, size, color, brand)
+SELECT 
+    product_id,
+    store_id,
+    MAX(size) AS size,
+    MAX(color) AS color,
+    MAX(brand) AS brand
+FROM attribute_values
+GROUP BY product_id, store_id;
