@@ -1,0 +1,16 @@
+Original Data
+Consider a table where each row represents an attribute of a product in a retail store:
+
+product_id	store_id	attribute_type	attribute_value
+101	1	size	Large
+101	1	color	Red
+101	1	brand	BrandA
+102	1	size	Medium
+102	1	color	Blue
+102	1	brand	BrandB
+Pivoted Data
+Pivoting this data results in a table where each product's attributes are consolidated into a single row:
+
+product_id	store_id	size	color	brand
+101	1	Large	Red	BrandA
+102	1	Medium	Blue	BrandB
