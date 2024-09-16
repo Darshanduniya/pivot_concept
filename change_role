@@ -1,0 +1,12 @@
+UPDATE ab_permission_view
+SET permission_id = (SELECT id FROM ab_permission WHERE name = 'can_edit')
+WHERE permission_id = (SELECT id FROM ab_permission WHERE name = 'can_read')
+AND view_menu_id = (SELECT id FROM ab_view_menu WHERE name = 'DAG:hello_world');
+
+
+====
+revert
+  UPDATE ab_permission_view
+SET permission_id = (SELECT id FROM ab_permission WHERE name = 'can_edit')
+WHERE permission_id = (SELECT id FROM ab_permission WHERE name = 'can_read')
+AND view_menu_id = (SELECT id FROM ab_view_menu WHERE name = 'DAG:hello_world');
