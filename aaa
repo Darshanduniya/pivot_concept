@@ -1,0 +1,20 @@
+# Step 1: Define variables
+business = "bea"
+frequency = "mit"
+check = business + "_" + frequency
+dataversion = "dgf_abd23"
+
+# Step 2: List of initial business entries
+bea = ['prd_it_npd_pos_bea_mit', 'prd_it_npd_pos_bea_wit']
+
+# Step 3: Iterate through the list and check if the business name contains 'check'
+updated_bea = []
+for item in bea:
+    if check in item:
+        # Step 4: Append the dataversion if 'check' is present in the item
+        updated_bea.append(item + "_" + dataversion)
+    else:
+        updated_bea.append(item)
+
+# Print the output
+print(updated_bea)
