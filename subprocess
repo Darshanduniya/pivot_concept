@@ -1,0 +1,14 @@
+import subprocess
+
+# Given dag_id
+dag_id = 'TS_TEC_WKD_A'
+
+# Extract industry and stack from the dag_id
+industry = dag_id[3:-2]  # Extract 'TEC_WKD'
+stack = dag_id[-1]       # Extract 'A'
+
+# Trigger the DAG with parameters
+subprocess.run([
+    'airflow', 'dags', 'trigger', dag_id,
+    '--conf', f'{{\"industry\": \"{industry}\", \"stack\": \"{stack}\"}}'
+])
